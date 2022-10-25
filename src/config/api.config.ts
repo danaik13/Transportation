@@ -1,0 +1,1 @@
+export const serverForRoutingBetweenMarkersURI = "https://routing.openstreetmap.de";

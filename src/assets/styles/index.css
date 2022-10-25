@@ -1,0 +1,25 @@
+@import '~antd/dist/antd.css';
+@import '~leaflet/dist/leaflet.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ant-table table {
+  width: auto;
+  min-width: unset !important;
+}
+
+.ant-table-wrapper {
+  width: fit-content;
+}
+
+.mosaic-split {
+  background-color: rgb(116, 111, 111);
+}
+
+.map-page {
+  height: 100vh;
+}

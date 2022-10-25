@@ -1,0 +1,1 @@
+export default (type: string, payload = {}) => ({ type, payload, action: true });

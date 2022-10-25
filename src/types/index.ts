@@ -24,13 +24,20 @@ export interface IRequestAction {
   markerTo?: Point;
 }
 
+export interface IRequest {
+  id: number;
+  from: Point;
+  to: Point;
+}
+
 export interface IRequestState {
-  listPoint: IPoint[],
-  data: IData[];
-  polylineBetweenMarkers: ArrayPoint[];
-  markerFrom: Point;
-  markerTo: Point;
-  activeRowId: number;
+  requests: IData[];
+  points: IPoint[],
+  polylineBetweenMarkers: Point[];
+  activeRequest: IRequest;
+  // markerFrom: Point;
+  // markerTo: Point;
+  // activeRequestId: number;
   splitPercentage: number;
 }
 
