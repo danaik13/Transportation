@@ -1,19 +1,17 @@
+import  Column from './Column'
 import { Table, Typography } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { useDispatch, useSelector } from 'react-redux';
-import { FROM_TYPE_MARKER, TO_TYPE_MARKER } from '../core/constants';
-import { IData, IPoint, IRequest } from '../types';
-import { setActiveRequest } from '../store/modules/map/actions/setActiveRequest';
 import { RootState } from '../store/reducers';
-import { getPointById } from '../utils/getPointById';
-import { serializeData } from '../utils/serializeData';
-import  Column from './Column'
-import { fetchPolylineBeetweenMarkersAction } from '../store/modules/map/actions/fetchPolylineBeetweenMarkers';
+import { IData, IPoint, IRequest } from '../types';
+import { getPointById, serializeData } from '../utils';
+import { FROM_MARKER, TO_MARKER } from '../constants/markers';
+import { setActiveRequest, fetchPolylineBeetweenMarkersAction } from '../store/modules/map/actions';
 
 
 const columns = (requests: IData[], points: IPoint[]): ColumnsType<IData> => ([
-  Column({title: 'Погрузка', key: FROM_TYPE_MARKER, points: points, requests: requests}),
-  Column({title: 'Разгрузка', key: TO_TYPE_MARKER, points: points, requests: requests}),
+  Column({title: 'Погрузка', key: FROM_MARKER, points: points, requests: requests}),
+  Column({title: 'Разгрузка', key: TO_MARKER, points: points, requests: requests}),
 ])
 
 const ListRequests = () => {

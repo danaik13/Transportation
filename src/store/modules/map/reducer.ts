@@ -1,9 +1,23 @@
-import { IRequestAction, IRequestState } from '../../../types';
+import { IData, IPoint, IRequest } from '../../../types';
 import { SET_ACTIVE_REQUEST } from './actions/setActiveRequest';
 import { SET_MARKER_IN_REQUEST } from './actions/setMarkerInRequest';
 import { SET_POLYLINE_BETWEEN_MARKERS } from './actions/setPolylineBetweenMarkers';
+import { type LatLngExpression, } from 'leaflet';
 
-export const INITIAL_STATE: IRequestState = {
+interface RequestState {
+  requests: IData[];
+  points: IPoint[],
+  polylineBetweenMarkers: LatLngExpression[];
+  activeRequest: IRequest;
+  splitPercentage: number;
+}
+
+export interface RequestAction {
+  type: string;
+  payload: any;
+}
+
+const INITIAL_STATE: RequestState = {
   requests: [
     {
         id: 1,
@@ -57,7 +71,7 @@ export const INITIAL_STATE: IRequestState = {
   splitPercentage: 35 //todo - вынести или избавиться от нее
 };
 
-export default (state = INITIAL_STATE , { type, payload }: IRequestAction) => {
+export default (state = INITIAL_STATE , { type, payload }: RequestAction) => {
   switch (type) {
     case SET_MARKER_IN_REQUEST:
       return {...state, requests: payload}

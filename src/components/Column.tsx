@@ -1,21 +1,20 @@
+import { Select } from 'antd';
 import { useDispatch } from 'react-redux'
-import { Select } from "antd";
-import { IData, IPoint, TypeMarker } from "../types";
-import { setMarkerInRequest } from '../store/modules/map/actions/setMarkerInRequest';
-
+import { IData, IPoint, TypeMarker } from '../types';
+import { setMarkerInRequest } from '../store/modules/map/actions';
 
 interface IColumn {
-    title: string;
-    key: TypeMarker;
-    points: IPoint[];
-    requests: IData[]
+  key: TypeMarker;
+  title: string;
+  points: IPoint[];
+  requests: IData[]
 }
 
 const Column = ({title, key, points, requests}: IColumn) => {
   const dispatch = useDispatch()
 
   const handleChange = ([requests, pointId, row, typeMarker]: [IData[],number, IData, TypeMarker]) => {
-    dispatch(setMarkerInRequest(requests, pointId, row.id, typeMarker))
+    dispatch(setMarkerInRequest({requests:requests, pointId:pointId, requestId: row.id, typeMarker:typeMarker}))
   };
 
   return ({

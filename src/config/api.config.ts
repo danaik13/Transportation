@@ -1,1 +1,1 @@
-export const serverForRoutingBetweenMarkersURI = "https://routing.openstreetmap.de";
+export const serverForRoutingBetweenMarkersURI = "https://routing.openstreetmap.de"

@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { apiConfig } from '../../config';
+import axios from 'axios'
+import { apiConfig } from '../../config'
 
 const routingBetweenMarkersAPI = axios.create({
   baseURL: apiConfig.serverForRoutingBetweenMarkersURI,

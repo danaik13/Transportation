@@ -1,16 +1,21 @@
-import { FROM_TYPE_MARKER, TO_TYPE_MARKER } from '../../../../core/constants';
+import { FROM_MARKER, TO_MARKER } from '../../../../constants/markers';
 import { IData, TypeMarker } from '../../../../types';
 import createAction from '../../../helpers/createAction';
 
+interface PropsAction {
+  requests: IData[];
+  pointId: number; 
+  requestId: number; 
+  typeMarker: TypeMarker;
+}
 
 export const SET_MARKER_IN_REQUEST = 'SET_MARKER_IN_REQUEST';
 
-// много параметров. больше 3 -> объект
-const setMarkerInRequest = (requests: IData[], pointId: number, requestId: number, typeMarker: TypeMarker) => {
-  const new_requests: IData[] = requests.map(request => {
-    if (request.id === requestId) {
-      if (typeMarker === FROM_TYPE_MARKER) return {...request, fromPointId: pointId}
-      if (typeMarker === TO_TYPE_MARKER) return {...request, toPointId: pointId}
+const setMarkerInRequest = (payload: PropsAction) => {
+  const new_requests: IData[] = payload.requests.map(request => {
+    if (request.id === payload.requestId) {
+      if (payload.typeMarker === FROM_MARKER) return {...request, fromPointId: payload.pointId}
+      if (payload.typeMarker === TO_MARKER) return {...request, toPointId: payload.pointId}
     }
 
     return request

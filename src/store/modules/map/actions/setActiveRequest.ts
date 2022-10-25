@@ -1,6 +1,5 @@
 import createAction from '../../../helpers/createAction';
-import { IRequest, Point } from '../../../../types';
-
+import { IRequest } from '../../../../types';
 
 export const SET_ACTIVE_REQUEST = 'SET_ACTIVE_REQUEST';
 

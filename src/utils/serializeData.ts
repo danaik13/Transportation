@@ -1,6 +1,5 @@
-import { IData, IPoint } from "../types"
-import { getPointById } from "./getPointById"
-
+import { IData, IPoint } from '../types'
+import { getPointById } from './getPointById'
 
 export const serializeData = (data: IData[], points: IPoint[]): IData[] => 
   data.map((item: IData) => {
