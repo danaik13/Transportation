@@ -1,4 +1,4 @@
 export * from './fetchPolylineBeetweenMarkers'
 export * from './setActiveRequest'
-export * from './setMarkerInRequest'
+export * from './setRequests'
 export * from './setPolylineBetweenMarkers'

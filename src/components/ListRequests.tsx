@@ -1,36 +1,58 @@
-import  Column from './Column'
-import { Table, Typography } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store/reducers';
-import { IData, IPoint, IRequest } from '../types';
-import { getPointById, serializeData } from '../utils';
-import { FROM_MARKER, TO_MARKER } from '../constants/markers';
-import { setActiveRequest, fetchPolylineBeetweenMarkersAction } from '../store/modules/map/actions';
+import { FC, useEffect } from 'react'
+import { Table, Typography } from 'antd'
+import type { ColumnsType } from 'antd/es/table'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../store/reducers'
+import { IData, IPoint, IRequest } from '../types'
+import { getPointById, serializeData } from '../utils'
+import { FROM_MARKER, TO_MARKER } from '../constants/markers'
+import { setActiveRequest, fetchPolylineBeetweenMarkersAction } from '../store/modules/map/actions'
+import { useColumn } from '../hooks/useColumn'
 
-
-const columns = (requests: IData[], points: IPoint[]): ColumnsType<IData> => ([
-  Column({title: 'Погрузка', key: FROM_MARKER, points: points, requests: requests}),
-  Column({title: 'Разгрузка', key: TO_MARKER, points: points, requests: requests}),
-])
-
-const ListRequests = () => {
+const ListRequests: FC = () => {
   const requests: IData[] = useSelector((state: RootState) => state.map.requests)
   const points: IPoint[] = useSelector((state: RootState) => state.map.points)
   const activeRequest: IRequest = useSelector((state: RootState) => state.map.activeRequest)
   const dispatch = useDispatch()
 
-  const showMarker = (id: number) => {
-    const row = requests.filter((obj: IData) => obj.id === id)[0]
+  useEffect(() => {
+    if (activeRequest.id === 0) return;
+    
+    dispatch(fetchPolylineBeetweenMarkersAction())
+  }, [activeRequest])
+
+  const columsFrom = useColumn({
+    title: 'Погрузка', 
+    key: FROM_MARKER,
+    requests, 
+    points
+  })
+  const columsTo = useColumn({
+    title: 'Разгрузка', 
+    key: TO_MARKER, 
+    requests, 
+    points
+  })
+
+  const columns: ColumnsType<IData> = [
+    columsFrom,
+    columsTo
+  ]
+
+  const showMarker = (requestId: number) => {
+    if (activeRequest.id === requestId) return;
+
+    const row = requests.filter((obj: IData) => obj.id === requestId)[0]
     const from = getPointById(points, row.fromPointId)
     const to = getPointById(points, row.toPointId)
 
-    dispatch(setActiveRequest({
-      id: id,
+    const newActiveRequest = {
+      id: requestId,
       from: from.position, 
       to: to.position
-    }))
-    dispatch(fetchPolylineBeetweenMarkersAction())
+    }
+
+    dispatch(setActiveRequest(newActiveRequest))
   }
 
   const onRow = (record: IData) => ({
@@ -45,7 +67,7 @@ const ListRequests = () => {
     <div style={{padding:"20px"}}>
       <Typography.Title level={2}>Заявки на перевозку</Typography.Title>
       <Table
-        columns={columns(requests, points)} 
+        columns={columns} 
         dataSource={serializeData(requests, points)} 
         onRow={onRow}   
         rowClassName={setRowClassName}

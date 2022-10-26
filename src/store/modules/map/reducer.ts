@@ -1,7 +1,5 @@
 import { IData, IPoint, IRequest } from '../../../types';
-import { SET_ACTIVE_REQUEST } from './actions/setActiveRequest';
-import { SET_MARKER_IN_REQUEST } from './actions/setMarkerInRequest';
-import { SET_POLYLINE_BETWEEN_MARKERS } from './actions/setPolylineBetweenMarkers';
+import { SET_REQUESTS, SET_POLYLINE_BETWEEN_MARKERS, SET_ACTIVE_REQUEST } from './actions';
 import { type LatLngExpression, } from 'leaflet';
 
 interface RequestState {
@@ -73,7 +71,7 @@ const INITIAL_STATE: RequestState = {
 
 export default (state = INITIAL_STATE , { type, payload }: RequestAction) => {
   switch (type) {
-    case SET_MARKER_IN_REQUEST:
+    case SET_REQUESTS:
       return {...state, requests: payload}
     case SET_ACTIVE_REQUEST:
       return {...state, activeRequest: payload}

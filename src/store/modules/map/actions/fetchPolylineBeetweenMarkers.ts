@@ -26,8 +26,6 @@ function* fetchPolylineBeetweenMarkersWorker(): any {
         })
     })
 
-    console.log(typeof polyline)
-
     yield put(setPolylineBetweenMarkers(polyline))
 }
 
