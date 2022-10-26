@@ -7,7 +7,6 @@ interface RequestState {
   points: IPoint[],
   polylineBetweenMarkers: LatLngExpression[];
   activeRequest: IRequest;
-  splitPercentage: number;
 }
 
 export interface RequestAction {
@@ -66,7 +65,6 @@ const INITIAL_STATE: RequestState = {
     from: [0, 0],
     to: [0, 0]
   },
-  splitPercentage: 35 //todo - вынести или избавиться от нее
 };
 
 export default (state = INITIAL_STATE , { type, payload }: RequestAction) => {
@@ -77,8 +75,6 @@ export default (state = INITIAL_STATE , { type, payload }: RequestAction) => {
       return {...state, activeRequest: payload}
     case SET_POLYLINE_BETWEEN_MARKERS:
       return {...state, polylineBetweenMarkers: payload}
-    // case SET_SPLIT_PERCENTAGE:
-    //   return {...state, splitPercentage: action.payload}
     default:
       return state;
   }
